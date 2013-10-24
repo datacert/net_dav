@@ -608,7 +608,7 @@ module Net #:nodoc:
     def put(path, stream, length)
       path = @uri.merge(path).path
       res = @handler.request_sending_stream(:put, path, stream, length, @headers)
-      res.body
+      res
     end
 
     # Stores the content of a string to a URL
@@ -619,7 +619,7 @@ module Net #:nodoc:
     def put_string(path, str)
       path = @uri.merge(path).path
       res = @handler.request_sending_body(:put, path, str, @headers)
-      res.body
+      res
     end
 
     # Delete request
@@ -629,7 +629,7 @@ module Net #:nodoc:
     def delete(path)
       path = @uri.merge(path).path
       res = @handler.request(:delete, path, nil, @headers)
-      res.body
+      res
     end
 
     # Send a move request to the server.
@@ -641,7 +641,7 @@ module Net #:nodoc:
       destination = @uri.merge(destination).to_s
       headers = {'Destination' => destination}
       res = @handler.request(:move, path, nil, headers.merge(@headers))
-      res.body
+      res
     end
 
     # Send a copy request to the server.
@@ -653,7 +653,7 @@ module Net #:nodoc:
       destination = @uri.merge(destination).to_s
       headers = {'Destination' => destination}
       res = @handler.request(:copy, path, nil, headers.merge(@headers))
-      res.body
+      res
     end
 
     # Do a proppatch request to the server to
@@ -701,6 +701,7 @@ module Net #:nodoc:
      headers = {'Lock-Token' => '<'+locktoken+'>'}
      path = @uri.merge(path).path
      res = @handler.request(:unlock, path, nil, headers.merge(@headers))
+	 res
     end
 
     # Returns true if resource exists on server.
@@ -724,7 +725,7 @@ module Net #:nodoc:
     def mkdir(path)
       path = @uri.merge(path).path
       res = @handler.request(:mkcol, path, nil, @headers)
-      res.body
+      res
     end
 
     def verify_callback=(callback)
